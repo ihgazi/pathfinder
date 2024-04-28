@@ -1,0 +1,11 @@
+.logo {
+    @apply text-white text-lg 
+}
+
+.btn {
+    @apply h-10 rounded-md px-1.5 text-sm;
+}
+
+.btn-red {
+    @apply bg-red-600;
+}

@@ -2,13 +2,16 @@ import React, { useEffect, useState } from "react";
 import { CellInterface } from "../types";
 import { getCellMatrix } from "../utils/helper";
 import Cell from "./Cell";
+import { getStartFinishCell } from "../utils/randomizer";
 
 const GridBoard = () => {
     // TODO: Bad fix. Use event listener for resize
     const viewWidth: number = window.innerWidth;
-    const colDim = viewWidth > 1200 ? 64 : 32;
+    const colDim: number = viewWidth > 1200 ? 64 : 32;
+    const rowDim: number = 30;
 
-    const gridBoardCells: CellInterface[][] = getCellMatrix(30, colDim);
+    const gridBoardCells: CellInterface[][] = getCellMatrix(rowDim, colDim);
+
     return (
         <>
             <div className="w-full justify-center items-center px-24">

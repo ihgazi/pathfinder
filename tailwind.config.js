@@ -7,7 +7,9 @@ export default {
   theme: {
     extend: {
         gridTemplateColumns: {
+            /* Template for grid board */
             '64': 'repeat(64, minmax(0, 1fr))',
+            '32': 'repeat(32, minmax(0, 1fr))',
         }
     },
   },

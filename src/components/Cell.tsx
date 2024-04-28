@@ -13,10 +13,13 @@ const Cell: React.FC<CellInterface & HTMLAttributes<HTMLDivElement>> = ({
 }) => {
     return (
         <div
+            {...props}
             className={
-                `w-full inline-flex justify-center items-center aspect-square border-[0.5px] border-indigo-300 ${
+                `cell w-full inline-flex justify-center items-center aspect-square border-[0.5px] border-indigo-300 ${
                     isStartPoint ? "bg-green-600" : ""
-                } ${isEndPoint ? "bg-red-600": ""}
+                } ${isEndPoint ? "bg-red-600": ""
+                } ${isWall ? "bg-black" : ""
+                }
             `}
         ></div>
     );

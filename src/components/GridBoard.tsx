@@ -1,6 +1,7 @@
 import React, { useRef, useState } from "react";
-import { CellInterface } from "../types";
+import { CellInterface, CoordinatePair, AlgorithmOption } from "../types";
 import { getCellMatrix } from "../utils/helper";
+import { getStartFinishCell } from "../utils/randomizer";
 import Cell from "./Cell";
 import Navbar from "../components/Navbar";
 
@@ -10,10 +11,16 @@ const GridBoard = () => {
     const colDim: number = viewWidth > 1200 ? 64 : 32;
     const rowDim: number = 30;
 
-    const gridBoardCells = useRef(getCellMatrix(rowDim, colDim));
+    const initialCoord = useRef(getStartFinishCell(rowDim, colDim));
+    const gridBoardCells = useRef(
+        getCellMatrix(rowDim, colDim, initialCoord.current)
+    );
 
     const [renderFlag, setRenderFlag] = useState(false);
     const [isMouseDown, setIsMouseDown] = useState(false);
+    
+    const [searchAlgo, setSearchAlgo] = useState<AlgorithmOption | null>(null);
+    const [speed, setSpeed] = useState<"slow" | "medium" | "fast">("medium");
 
     const handleDraw = (rowInd: number, colInd: number, click: boolean) => {
         setRenderFlag(!renderFlag);
@@ -21,16 +28,23 @@ const GridBoard = () => {
         if (!isMouseDown && !click) return;
         if (cell.isStartPoint || cell.isEndPoint) return;
 
-        cell.isWall = true;
+        cell.isWall = !cell.isWall;
     };
 
     const clearGrid = () => {
-        gridBoardCells.current = getCellMatrix(rowDim, colDim, true, gridBoardCells.current);
-    }
+        gridBoardCells.current = getCellMatrix(
+            rowDim,
+            colDim,
+            initialCoord.current,
+            true,
+            gridBoardCells.current
+        );
+        setRenderFlag(!renderFlag);
+    };
 
     return (
         <>
-            <Navbar clearGrid = { clearGrid } />
+            <Navbar clearGrid={clearGrid} />
             <div className="w-full justify-center items-center px-24">
                 <div
                     className={`grid w-full justify-start items-center mt-8 ${
@@ -47,11 +61,19 @@ const GridBoard = () => {
                                             id={`cell-${cell.row}-${cell.col}`}
                                             onMouseEnter={() => {
                                                 //alert(`${rowInd} ${colInd} pressed`);
-                                                handleDraw(cell.row,cell.col,false);
+                                                handleDraw(
+                                                    cell.row,
+                                                    cell.col,
+                                                    false
+                                                );
                                             }}
                                             onMouseDown={() => {
                                                 setIsMouseDown(true);
-                                                handleDraw(cell.row,cell.col,true);
+                                                handleDraw(
+                                                    cell.row,
+                                                    cell.col,
+                                                    true
+                                                );
                                             }}
                                             onMouseUp={() => {
                                                 setIsMouseDown(false);

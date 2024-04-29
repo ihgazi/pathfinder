@@ -1,6 +1,7 @@
 import { CoordinatePair, CellInterface } from "../types";
 import { getStartFinishCell } from "./randomizer";
 
+/* Generic cell variable */
 export const singleCell: CellInterface = {
     cellNumber: 0,
     col: 0,
@@ -8,16 +9,20 @@ export const singleCell: CellInterface = {
     isWall: false,
     isStartPoint: false,
     isEndPoint: false,
+    distanceFromStart: Infinity,
+    previousCell: null,
 };
 
+/* Clear current grid or create a new grid */
 export const getCellMatrix = (
     rowDim: number,
     colDim: number,
+    initialCoord: CoordinatePair,
     resetWalls: boolean = false,
-    grid?: CellInterface[][]
+    grid?: CellInterface[][],
 ): CellInterface[][] => {
     const cellMatrix: CellInterface[][] = grid || [];
-    const initialCoord: CoordinatePair = getStartFinishCell(rowDim, colDim);
+    //const initialCoord: CoordinatePair = getStartFinishCell(rowDim, colDim);
     let cellNumber = 0;
 
     for (let rowInd = 0; rowInd < rowDim; rowInd++) {

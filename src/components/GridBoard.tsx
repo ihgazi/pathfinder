@@ -1,10 +1,11 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { CellInterface, CoordinatePair, AlgorithmOption } from "../types";
 import { getCellMatrix } from "../utils/builder";
 import { getStartFinishCell } from "../utils/randomizer";
 import Cell from "./Cell";
 import Navbar from "../components/Navbar";
 import { DFS } from "../utils/dfs";
+import { animatePath } from "../utils/animator";
 
 const GridBoard = () => {
     // TODO: Bad fix. Use event listener for resize
@@ -22,13 +23,15 @@ const GridBoard = () => {
 
     const [searchAlgo, setSearchAlgo] = useState<AlgorithmOption | null>(null);
     const [speed, setSpeed] = useState<"slow" | "medium" | "fast">("medium");
+    const [pathFound, setPathFound] = useState(false);
 
     const handleDraw = (rowInd: number, colInd: number, click: boolean) => {
-        setRenderFlag(!renderFlag);
+        if (click) console.log(`${rowInd} ${colInd}`);
         const cell: CellInterface = gridBoardCells.current[rowInd][colInd];
         if (!isMouseDown && !click) return;
         if (cell.isStartPoint || cell.isEndPoint) return;
         cell.isWall = !cell.isWall;
+        setRenderFlag(!renderFlag);
     };
 
     const clearGrid = () => {
@@ -39,14 +42,20 @@ const GridBoard = () => {
             true,
             gridBoardCells.current
         );
-        setRenderFlag(!renderFlag);
+        setPathFound(false);
     };
 
-    const animateAlgo = (visitedCells: CellInterface[][]) => {
+    useEffect(() => {
+        if (pathFound) animatePath(gridBoardCells.current, initialCoord.current);
+    }, [pathFound]);
+
+    /*const animateAlgo = (visitedCells: CellInterface[][]) => {
+
         for (let iter = 0; iter < visitedCells.length; iter++) {
             setTimeout(() => {
                 visitedCells[iter].map((cell, idx) => {
                     if (cell.isEndPoint) {
+                        setPathFound(true);
                     }
                     let item = document.getElementById(
                         `cell-${cell.row}-${cell.col}`
@@ -55,12 +64,37 @@ const GridBoard = () => {
                 });
             }, 10 * iter);
         }
+
+    };
+
+    const animatePath = () => {
+        const grid = gridBoardCells.current;
+
+        const endRow = initialCoord.current.endRow;
+        const endCol = initialCoord.current.endCol;
+        const endCell = grid[endRow][endCol];
+
+        let cell = endCell;
+
+        // Iterating while current cell does not reach end of path
+        for (let iter = 1; ; iter++) { 
+            console.log(`${cell.row} ${cell.col}`);
+            setTimeout((row: number, col: number) => {
+                let item = document.getElementById(
+                    `cell-${row}-${col}`
+                );
+                item!.className = "cell cell-path";
+            }, 25 * iter, cell.row, cell.col);
+
+            if (!cell.previousCell) break;
+            else cell = cell.previousCell;
+            iter++;
+        }
     };
 
     const visualizeAlgo = () => {
         const grid = gridBoardCells.current;
 
-        console.log(`${grid.length} ${grid[0].length}`);
         const startRow = initialCoord.current.startRow;
         const startCol = initialCoord.current.startCol;
         const startCell = grid[startRow][startCol];
@@ -71,10 +105,11 @@ const GridBoard = () => {
 
         console.log("Starting Animation!");
         animateAlgo(visitedCells);
-    };
+    };*/
+
     return (
         <>
-            <Navbar clearGrid={clearGrid} visualizeAlgo={visualizeAlgo} />
+            <Navbar clearGrid={clearGrid} grid={gridBoardCells.current} initialCoord = {initialCoord.current} setPathFound={setPathFound} />
             <div className="w-full justify-center items-center px-24">
                 <div
                     className={`grid w-full justify-start items-center mt-8 ${

@@ -36,7 +36,15 @@
 }
 
 .cell-path {
-    @apply !bg-blue-600
+    @apply !bg-blue-600;
+    animation-name: pathAnimation;
+    animation-duration: 0.5s;
+    animation-timing-function: ease-out;
+    animation-delay: 0;
+    animation-direction: alternate;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+    animation-play-state: running;
 }
 
 @keyframes visitedAnimation {
@@ -58,5 +66,27 @@
     100% {
         transform: scale(1);
         @apply: bg-amber-200;
+    }
+}
+
+@keyframes pathAnimation {
+    0% {
+        transform: scale(0.3);
+        @apply bg-blue-600;
+    }
+
+    50% {
+        background-color: rgba(111, 111, 111, 0.75);
+        @apply bg-blue-400;
+    }
+
+    75% {
+        transform: scale(1.2);
+        @apply: bg-blue-300;
+    }
+
+    100% {
+        transform: scale(1);
+        @apply: bg-blue-200;
     }
 }

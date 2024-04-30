@@ -11,6 +11,7 @@ export const singleCell: CellInterface = {
     isEndPoint: false,
     distanceFromStart: Infinity,
     previousCell: null,
+    isVisited: false,
 };
 
 /* Clear current grid or create a new grid */
@@ -19,7 +20,7 @@ export const getCellMatrix = (
     colDim: number,
     initialCoord: CoordinatePair,
     resetWalls: boolean = false,
-    grid?: CellInterface[][],
+    grid?: CellInterface[][]
 ): CellInterface[][] => {
     const cellMatrix: CellInterface[][] = grid || [];
     //const initialCoord: CoordinatePair = getStartFinishCell(rowDim, colDim);
@@ -29,7 +30,12 @@ export const getCellMatrix = (
         const currentRow: CellInterface[] = [];
         for (let colInd = 0; colInd < colDim; colInd++) {
             if (resetWalls && grid) {
-                grid[rowInd][colInd].isWall = false;
+                const cell = grid[rowInd][colInd];
+                cell.isWall = false;
+                cell.isVisited = false;
+                cell.previousCell = null;
+                let item = document.getElementById(`cell-${rowInd}-${colInd}`);
+                item!.className = getClassName(cell.isWall, cell.isStartPoint, cell.isEndPoint);
             } else {
                 currentRow.push({
                     ...singleCell,
@@ -46,8 +52,20 @@ export const getCellMatrix = (
             }
             cellNumber++;
         }
-        cellMatrix.push(currentRow);
+        if (!resetWalls) cellMatrix.push(currentRow);
     }
 
     return cellMatrix;
+};
+
+export const getClassName = (
+    isWall: boolean,
+    isStartPoint: boolean,
+    isEndPoint: boolean
+): string => {
+    const className: string = `cell ${isStartPoint ? "cell-start" : ""} ${
+        isEndPoint ? "cell-end" : ""
+    } ${isWall ? "cell-wall" : ""}`;
+    
+    return className;
 };

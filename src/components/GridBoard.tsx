@@ -1,9 +1,10 @@
 import React, { useRef, useState } from "react";
 import { CellInterface, CoordinatePair, AlgorithmOption } from "../types";
-import { getCellMatrix } from "../utils/helper";
+import { getCellMatrix } from "../utils/builder";
 import { getStartFinishCell } from "../utils/randomizer";
 import Cell from "./Cell";
 import Navbar from "../components/Navbar";
+import { DFS } from "../utils/dfs";
 
 const GridBoard = () => {
     // TODO: Bad fix. Use event listener for resize
@@ -18,7 +19,7 @@ const GridBoard = () => {
 
     const [renderFlag, setRenderFlag] = useState(false);
     const [isMouseDown, setIsMouseDown] = useState(false);
-    
+
     const [searchAlgo, setSearchAlgo] = useState<AlgorithmOption | null>(null);
     const [speed, setSpeed] = useState<"slow" | "medium" | "fast">("medium");
 
@@ -27,7 +28,6 @@ const GridBoard = () => {
         const cell: CellInterface = gridBoardCells.current[rowInd][colInd];
         if (!isMouseDown && !click) return;
         if (cell.isStartPoint || cell.isEndPoint) return;
-
         cell.isWall = !cell.isWall;
     };
 
@@ -42,9 +42,39 @@ const GridBoard = () => {
         setRenderFlag(!renderFlag);
     };
 
+    const animateAlgo = (visitedCells: CellInterface[][]) => {
+        for (let iter = 0; iter < visitedCells.length; iter++) {
+            setTimeout(() => {
+                visitedCells[iter].map((cell, idx) => {
+                    if (cell.isEndPoint) {
+                    }
+                    let item = document.getElementById(
+                        `cell-${cell.row}-${cell.col}`
+                    );
+                    item!.className = "cell cell-visited";
+                });
+            }, 10 * iter);
+        }
+    };
+
+    const visualizeAlgo = () => {
+        const grid = gridBoardCells.current;
+
+        console.log(`${grid.length} ${grid[0].length}`);
+        const startRow = initialCoord.current.startRow;
+        const startCol = initialCoord.current.startCol;
+        const startCell = grid[startRow][startCol];
+
+        const visitedCells: CellInterface[][] = [];
+
+        DFS(grid, visitedCells, startCell);
+
+        console.log("Starting Animation!");
+        animateAlgo(visitedCells);
+    };
     return (
         <>
-            <Navbar clearGrid={clearGrid} />
+            <Navbar clearGrid={clearGrid} visualizeAlgo={visualizeAlgo} />
             <div className="w-full justify-center items-center px-24">
                 <div
                     className={`grid w-full justify-start items-center mt-8 ${

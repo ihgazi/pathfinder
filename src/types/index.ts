@@ -7,6 +7,7 @@ export interface CellInterface {
     isEndPoint: boolean;
     distanceFromStart: number;
     previousCell: CellInterface | null;
+    isVisited: boolean;
 }
 
 export interface CoordinatePair {

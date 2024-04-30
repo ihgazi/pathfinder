@@ -6,3 +6,57 @@
 * {
   font-family: "Poppins", sans-serif;
 }
+
+.cell {
+    @apply w-full inline-flex justify-center items-center aspect-square border-[0.5px] border-indigo-300;   
+}
+
+.cell-start {
+    @apply bg-green-600;
+}
+
+.cell-end {
+    @apply bg-red-600;
+}
+
+.cell-wall {
+    @apply bg-black;
+}
+
+.cell-visited {
+    @apply bg-amber-200;
+    animation-name: visitedAnimation;
+    animation-duration: 1.5s;
+    animation-timing-function: ease-out;
+    animation-delay: 0;
+    animation-direction: alternate;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+    animation-play-state: running;
+}
+
+.cell-path {
+    @apply !bg-blue-600
+}
+
+@keyframes visitedAnimation {
+    0% {
+        transform: scale(0.3);
+        @apply bg-amber-600;
+    }
+
+    50% {
+        background-color: rgba(111, 111, 111, 0.75);
+        @apply bg-amber-400;
+    }
+
+    75% {
+        transform: scale(1.2);
+        @apply: bg-amber-300;
+    }
+
+    100% {
+        transform: scale(1);
+        @apply: bg-amber-200;
+    }
+}

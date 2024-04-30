@@ -3,10 +3,12 @@ import "./Navbar.css";
 
 interface NavbarProps extends HTMLAttributes<HTMLDivElement> {
     clearGrid: () => void;
+    visualizeAlgo: () => void;
 }
 
 const Navbar: React.FC<NavbarProps> = ({
     clearGrid,
+    visualizeAlgo,
     ...props
 }) => {
     return (
@@ -17,10 +19,17 @@ const Navbar: React.FC<NavbarProps> = ({
             </div>
             <button
                 type="button"
-                className="btn btn-red"
+                className="btn btn-red mr-10"
                 onClick={() => clearGrid()}
             >
                 Clear Grid
+            </button>
+            <button
+                type="button"
+                className="btn bg-green-400"
+                onClick={() => visualizeAlgo()}
+            >
+                Run
             </button>
         </div>
     )

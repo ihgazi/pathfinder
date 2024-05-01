@@ -18,6 +18,8 @@ const GridBoard = () => {
         getCellMatrix(rowDim, colDim, initialCoord.current)
     );
 
+    // animateFlag blocks all actions during animation
+    const [animateFlag, setAnimateFlag] = useState(false);
     const [renderFlag, setRenderFlag] = useState(false);
     const [isMouseDown, setIsMouseDown] = useState(false);
 
@@ -26,6 +28,8 @@ const GridBoard = () => {
     const [pathFound, setPathFound] = useState(false);
 
     const handleDraw = (rowInd: number, colInd: number, click: boolean) => {
+        if (animateFlag) return;
+
         if (click) console.log(`${rowInd} ${colInd}`);
         const cell: CellInterface = gridBoardCells.current[rowInd][colInd];
         if (!isMouseDown && !click) return;
@@ -46,70 +50,24 @@ const GridBoard = () => {
     };
 
     useEffect(() => {
-        if (pathFound) animatePath(gridBoardCells.current, initialCoord.current);
+        if (pathFound)
+            animatePath(
+                gridBoardCells.current,
+                initialCoord.current,
+                (value) => setAnimateFlag(value)
+            );
     }, [pathFound]);
-
-    /*const animateAlgo = (visitedCells: CellInterface[][]) => {
-
-        for (let iter = 0; iter < visitedCells.length; iter++) {
-            setTimeout(() => {
-                visitedCells[iter].map((cell, idx) => {
-                    if (cell.isEndPoint) {
-                        setPathFound(true);
-                    }
-                    let item = document.getElementById(
-                        `cell-${cell.row}-${cell.col}`
-                    );
-                    item!.className = "cell cell-visited";
-                });
-            }, 10 * iter);
-        }
-
-    };
-
-    const animatePath = () => {
-        const grid = gridBoardCells.current;
-
-        const endRow = initialCoord.current.endRow;
-        const endCol = initialCoord.current.endCol;
-        const endCell = grid[endRow][endCol];
-
-        let cell = endCell;
-
-        // Iterating while current cell does not reach end of path
-        for (let iter = 1; ; iter++) { 
-            console.log(`${cell.row} ${cell.col}`);
-            setTimeout((row: number, col: number) => {
-                let item = document.getElementById(
-                    `cell-${row}-${col}`
-                );
-                item!.className = "cell cell-path";
-            }, 25 * iter, cell.row, cell.col);
-
-            if (!cell.previousCell) break;
-            else cell = cell.previousCell;
-            iter++;
-        }
-    };
-
-    const visualizeAlgo = () => {
-        const grid = gridBoardCells.current;
-
-        const startRow = initialCoord.current.startRow;
-        const startCol = initialCoord.current.startCol;
-        const startCell = grid[startRow][startCol];
-
-        const visitedCells: CellInterface[][] = [];
-
-        DFS(grid, visitedCells, startCell);
-
-        console.log("Starting Animation!");
-        animateAlgo(visitedCells);
-    };*/
 
     return (
         <>
-            <Navbar clearGrid={clearGrid} grid={gridBoardCells.current} initialCoord = {initialCoord.current} setPathFound={setPathFound} />
+            <Navbar
+                clearGrid={clearGrid}
+                grid={gridBoardCells.current}
+                initialCoord={initialCoord.current}
+                setPathFound={(value) => setPathFound(value)}
+                animateFlag={animateFlag}
+                setAnimateFlag={(value) => setAnimateFlag(value)}
+            />
             <div className="w-full justify-center items-center px-24">
                 <div
                     className={`grid w-full justify-start items-center mt-8 ${

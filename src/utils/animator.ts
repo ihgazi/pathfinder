@@ -5,31 +5,48 @@ const animateAlgo = (
     visitedCells: CellInterface[][],
     setPathFound: (value: boolean) => void
 ) => {
-    for (let iter = 0; iter < visitedCells.length; iter++) {
-        setTimeout(() => {
-            visitedCells[iter].map((cell, idx) => {
-                if (cell.isEndPoint) {
-                    setPathFound(true);
-                }
-                let item = document.getElementById(
-                    `cell-${cell.row}-${cell.col}`
-                );
-                item!.className = "cell cell-visited";
-            });
-        }, 10 * iter);
+    let iter: number = 0;
+    while (iter < visitedCells.length) {
+        setTimeout(
+            (iter: number) => {
+                visitedCells[iter].map((cell, idx) => {
+                    let item = document.getElementById(
+                        `cell-${cell.row}-${cell.col}`
+                    );
+                    item!.className = "cell cell-visited";
+                });
+            },
+            10 * iter,
+            iter
+        );
+        iter++;
     }
+
+    setTimeout(() => {
+        setPathFound(true);
+    }, 10 * iter);
 };
 
-export const animatePath = (grid: CellInterface[][], initialCoord: CoordinatePair) => {
+// Animate path after visualizing algorithm
+export const animatePath = (
+    grid: CellInterface[][],
+    initialCoord: CoordinatePair,
+    setAnimateFlag: (value: boolean) => void,
+) => {
     const endRow = initialCoord.endRow;
     const endCol = initialCoord.endCol;
     const endCell = grid[endRow][endCol];
 
     let cell = endCell;
 
+    // If path does not exist return
+    if (!cell.previousCell) {
+        return;
+    }
+
     // Iterating while current cell does not reach end of path
-    for (let iter = 1; ; iter++) {
-        console.log(`${cell.row} ${cell.col}`);
+    let iter: number;
+    for (iter = 0; ; iter++) {
         setTimeout(
             (row: number, col: number) => {
                 let item = document.getElementById(`cell-${row}-${col}`);
@@ -42,14 +59,17 @@ export const animatePath = (grid: CellInterface[][], initialCoord: CoordinatePai
 
         if (!cell.previousCell) break;
         else cell = cell.previousCell;
-        iter++;
     }
+
+    setTimeout(() => {
+        setAnimateFlag(false);
+    }, 25*iter);
 };
 
 export const visualizeAlgo = (
     grid: CellInterface[][],
     setFoundPath: (value: boolean) => void,
-    initialCoord: CoordinatePair
+    initialCoord: CoordinatePair,
 ) => {
     const startRow = initialCoord.startRow;
     const startCol = initialCoord.startCol;

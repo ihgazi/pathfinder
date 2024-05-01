@@ -8,6 +8,8 @@ interface NavbarProps extends HTMLAttributes<HTMLDivElement> {
     grid: CellInterface[][];
     setPathFound: (value: boolean) => void;
     initialCoord: CoordinatePair;
+    animateFlag: boolean;
+    setAnimateFlag: (value: boolean) => void;
 }
 
 const Navbar: React.FC<NavbarProps> = ({
@@ -15,6 +17,8 @@ const Navbar: React.FC<NavbarProps> = ({
     grid,
     setPathFound,
     initialCoord,
+    animateFlag,
+    setAnimateFlag,
     ...props
 }) => {
     return (
@@ -23,14 +27,22 @@ const Navbar: React.FC<NavbarProps> = ({
             <button
                 type="button"
                 className="btn btn-red mr-10"
-                onClick={() => clearGrid()}
+                onClick={() => {
+                    if (animateFlag) return;
+                    clearGrid();
+                }}
             >
                 Clear Grid
             </button>
             <button
                 type="button"
                 className="btn bg-green-400"
-                onClick={() => visualizeAlgo(grid, setPathFound, initialCoord)}
+                onClick={() => {
+                    if (animateFlag) return;
+
+                    setAnimateFlag(true);
+                    visualizeAlgo(grid, setPathFound, initialCoord);
+                }}
             >
                 Run
             </button>

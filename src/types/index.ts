@@ -26,3 +26,14 @@ export interface AlgorithmOption {
     type: SearchingAlgo;
     onClick: () => void;
 }
+
+export enum RenderRate {
+    slow = "slow",
+    medium = "medium",
+    fast = "fast",
+}
+
+export interface AnimateSpeed {
+    algoSpeed: number,
+    pathSpeed: number,
+}

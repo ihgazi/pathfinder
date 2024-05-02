@@ -1,7 +1,8 @@
 import React, { HTMLAttributes, useState, useEffect } from "react";
 import "./Navbar.css";
 import { visualizeAlgo, animatePath } from "../utils/animator";
-import { CellInterface, CoordinatePair, AlgorithmOption } from "../types";
+import { CellInterface, CoordinatePair, AlgorithmOption, RenderRate } from "../types";
+import { SpeedController } from "./SpeedController";
 
 interface NavbarProps extends HTMLAttributes<HTMLDivElement> {
     clearGrid: () => void;
@@ -21,7 +22,7 @@ const Navbar: React.FC<NavbarProps> = ({
 }) => {
 
     const [searchAlgo, setSearchAlgo] = useState<AlgorithmOption | null>(null);
-    const [speed, setSpeed] = useState<"slow" | "medium" | "fast">("medium");
+    const [speed, setSpeed] = useState<RenderRate>(RenderRate.medium);
     const [pathFound, setPathFound] = useState(false);
 
     useEffect(() => {
@@ -29,7 +30,8 @@ const Navbar: React.FC<NavbarProps> = ({
             animatePath(
                 grid,
                 initialCoord,
-                (value) => setAnimateFlag(value)
+                (value) => setAnimateFlag(value),
+                speed
             );
     }, [pathFound]);
 
@@ -55,11 +57,12 @@ const Navbar: React.FC<NavbarProps> = ({
                     if (animateFlag) return;
 
                     setAnimateFlag(true);
-                    visualizeAlgo(grid, setPathFound, initialCoord);
+                    visualizeAlgo(grid, setPathFound, initialCoord, speed);
                 }}
             >
                 Run
             </button>
+            <SpeedController speed={speed} setSpeed={setSpeed}/>
         </div>
     );
 };

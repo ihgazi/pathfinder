@@ -90,3 +90,15 @@
         @apply: bg-blue-200;
     }
 }
+
+.btn {
+    @apply h-10 rounded-md px-1.5 text-sm;
+}
+
+.btn-red {
+    @apply bg-red-600;
+}
+
+.btn-dropdown {
+    @apply flex items-center gap-x-3.5 text-gray-800 hover:bg-gray-100 w-24;
+}

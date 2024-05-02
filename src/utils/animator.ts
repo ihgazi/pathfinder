@@ -1,10 +1,13 @@
-import { CellInterface, CoordinatePair } from "../types";
+import { CellInterface, CoordinatePair, RenderRate, AnimateSpeed } from "../types";
 import { DFS } from "../utils/dfs";
+import { getSpeedMultiplier } from "./controller";
 
 const animateAlgo = (
     visitedCells: CellInterface[][],
-    setPathFound: (value: boolean) => void
+    setPathFound: (value: boolean) => void,
+    renderRate: RenderRate
 ) => {
+    const speed = getSpeedMultiplier(renderRate).algoSpeed;
     let iter: number = 0;
     while (iter < visitedCells.length) {
         setTimeout(
@@ -16,7 +19,7 @@ const animateAlgo = (
                     item!.className = "cell cell-visited";
                 });
             },
-            10 * iter,
+            speed * iter,
             iter
         );
         iter++;
@@ -24,7 +27,7 @@ const animateAlgo = (
 
     setTimeout(() => {
         setPathFound(true);
-    }, 10 * iter);
+    }, speed * iter);
 };
 
 // Animate path after visualizing algorithm
@@ -32,6 +35,7 @@ export const animatePath = (
     grid: CellInterface[][],
     initialCoord: CoordinatePair,
     setAnimateFlag: (value: boolean) => void,
+    renderRate: RenderRate
 ) => {
     const endRow = initialCoord.endRow;
     const endCol = initialCoord.endCol;
@@ -44,6 +48,7 @@ export const animatePath = (
         return;
     }
 
+    const speed = getSpeedMultiplier(renderRate).pathSpeed;
     // Iterating while current cell does not reach end of path
     let iter: number;
     for (iter = 0; ; iter++) {
@@ -52,7 +57,7 @@ export const animatePath = (
                 let item = document.getElementById(`cell-${row}-${col}`);
                 item!.className = "cell cell-path";
             },
-            25 * iter,
+            speed * iter,
             cell.row,
             cell.col
         );
@@ -63,13 +68,14 @@ export const animatePath = (
 
     setTimeout(() => {
         setAnimateFlag(false);
-    }, 25*iter);
+    }, speed*iter);
 };
 
 export const visualizeAlgo = (
     grid: CellInterface[][],
     setFoundPath: (value: boolean) => void,
     initialCoord: CoordinatePair,
+    renderRate: RenderRate
 ) => {
     const startRow = initialCoord.startRow;
     const startCol = initialCoord.startCol;
@@ -78,7 +84,8 @@ export const visualizeAlgo = (
     const visitedCells: CellInterface[][] = [];
 
     DFS(grid, visitedCells, startCell);
-
+    
+    //const animateSpeed = getSpeedMultiplier(speed);
     console.log("Starting Animation!");
-    animateAlgo(visitedCells, setFoundPath);
+    animateAlgo(visitedCells, setFoundPath, renderRate);
 };

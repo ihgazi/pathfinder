@@ -1,11 +1,9 @@
 import React, { useRef, useState, useEffect } from "react";
-import { CellInterface, CoordinatePair, AlgorithmOption } from "../types";
+import { CellInterface, CoordinatePair  } from "../types";
 import { getCellMatrix } from "../utils/builder";
 import { getStartFinishCell } from "../utils/randomizer";
 import Cell from "./Cell";
 import Navbar from "../components/Navbar";
-import { DFS } from "../utils/dfs";
-import { animatePath } from "../utils/animator";
 
 const GridBoard = () => {
     // TODO: Bad fix. Use event listener for resize
@@ -22,10 +20,6 @@ const GridBoard = () => {
     const [animateFlag, setAnimateFlag] = useState(false);
     const [renderFlag, setRenderFlag] = useState(false);
     const [isMouseDown, setIsMouseDown] = useState(false);
-
-    const [searchAlgo, setSearchAlgo] = useState<AlgorithmOption | null>(null);
-    const [speed, setSpeed] = useState<"slow" | "medium" | "fast">("medium");
-    const [pathFound, setPathFound] = useState(false);
 
     const handleDraw = (rowInd: number, colInd: number, click: boolean) => {
         if (animateFlag) return;
@@ -46,17 +40,7 @@ const GridBoard = () => {
             true,
             gridBoardCells.current
         );
-        setPathFound(false);
     };
-
-    useEffect(() => {
-        if (pathFound)
-            animatePath(
-                gridBoardCells.current,
-                initialCoord.current,
-                (value) => setAnimateFlag(value)
-            );
-    }, [pathFound]);
 
     return (
         <>
@@ -64,7 +48,6 @@ const GridBoard = () => {
                 clearGrid={clearGrid}
                 grid={gridBoardCells.current}
                 initialCoord={initialCoord.current}
-                setPathFound={(value) => setPathFound(value)}
                 animateFlag={animateFlag}
                 setAnimateFlag={(value) => setAnimateFlag(value)}
             />

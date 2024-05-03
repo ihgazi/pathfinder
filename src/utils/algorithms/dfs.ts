@@ -1,4 +1,4 @@
-import { CellInterface } from "../types";
+import { CellInterface } from "../../types";
 
 const dx: number[] = [0,0,1,-1];
 const dy: number[] = [1,-1,0,0];
@@ -8,7 +8,7 @@ export const DFS = (
     grid: CellInterface[][],
     visitedCells: CellInterface[][],
     currentCell: CellInterface
-) => {
+): boolean => {
     //console.log(`${currentCell.row} ${currentCell.col}`);
     currentCell.isVisited = true;
     visitedCells.push([currentCell]);

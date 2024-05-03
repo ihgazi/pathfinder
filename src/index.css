@@ -100,5 +100,5 @@
 }
 
 .btn-dropdown {
-    @apply flex items-center gap-x-3.5 text-gray-800 hover:bg-gray-100 w-24;
+    @apply flex items-center gap-x-3.5 text-gray-800 hover:bg-gray-100 w-full;
 }

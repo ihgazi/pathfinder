@@ -1,4 +1,5 @@
-import { RenderRate, AnimateSpeed } from "../types";
+import { RenderRate, AnimateSpeed, SearchingAlgo, AlgorithmOption } from "../types";
+import { DFS } from "./algorithms/dfs";
 
 // Controller functions for speed and algorithm selection
 
@@ -22,7 +23,19 @@ export const getSpeedMultiplier = (speed: RenderRate): AnimateSpeed => {
     }
 };
 
-        
-
-
+export const getAlgorithmOption = (algo: SearchingAlgo | null): AlgorithmOption => {
+    switch (algo) {
+        case (SearchingAlgo.DFS):
+            return {
+               name: "Depth-First Search",
+               type: SearchingAlgo.DFS,
+               onRun: DFS
+            };
+        default: 
+            return {
+                name: "Select an algorithm!",
+                type: null,
+            };
+        }
+};
 

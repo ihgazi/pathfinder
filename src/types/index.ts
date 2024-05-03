@@ -18,13 +18,17 @@ export interface CoordinatePair {
 }
 
 export enum SearchingAlgo {
-    DFS = "DFS"
+    DFS = "DFS",
 }
 
 export interface AlgorithmOption {
     name: string;
-    type: SearchingAlgo;
-    onClick: () => void;
+    type: SearchingAlgo | null;
+    onRun?: (
+        grid: CellInterface[][],
+        visitedCells: CellInterface[][],
+        cell: CellInterface,
+    ) => boolean;
 }
 
 export enum RenderRate {
@@ -34,6 +38,6 @@ export enum RenderRate {
 }
 
 export interface AnimateSpeed {
-    algoSpeed: number,
-    pathSpeed: number,
+    algoSpeed: number;
+    pathSpeed: number;
 }

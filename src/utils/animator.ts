@@ -1,5 +1,4 @@
-import { CellInterface, CoordinatePair, RenderRate, AnimateSpeed } from "../types";
-import { DFS } from "../utils/dfs";
+import { CellInterface, CoordinatePair, RenderRate, AnimateSpeed, AlgorithmOption } from "../types";
 import { getSpeedMultiplier } from "./controller";
 
 const animateAlgo = (
@@ -75,7 +74,8 @@ export const visualizeAlgo = (
     grid: CellInterface[][],
     setFoundPath: (value: boolean) => void,
     initialCoord: CoordinatePair,
-    renderRate: RenderRate
+    renderRate: RenderRate,
+    searchAlgo: AlgorithmOption
 ) => {
     const startRow = initialCoord.startRow;
     const startCol = initialCoord.startCol;
@@ -83,7 +83,7 @@ export const visualizeAlgo = (
 
     const visitedCells: CellInterface[][] = [];
 
-    DFS(grid, visitedCells, startCell);
+    searchAlgo.onRun!(grid, visitedCells, startCell);
     
     //const animateSpeed = getSpeedMultiplier(speed);
     console.log("Starting Animation!");

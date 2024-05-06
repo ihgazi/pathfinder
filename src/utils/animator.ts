@@ -44,6 +44,7 @@ export const animatePath = (
 
     // If path does not exist return
     if (!cell.previousCell) {
+        setAnimateFlag(false);
         return;
     }
 
@@ -77,13 +78,13 @@ export const visualizeAlgo = (
     renderRate: RenderRate,
     searchAlgo: AlgorithmOption
 ) => {
-    const startRow = initialCoord.startRow;
-    const startCol = initialCoord.startCol;
-    const startCell = grid[startRow][startCol];
+    //const startRow = initialCoord.startRow;
+    //const startCol = initialCoord.startCol;
+    //const startCell = grid[startRow][startCol];
 
     const visitedCells: CellInterface[][] = [];
 
-    searchAlgo.onRun!(grid, visitedCells, startCell);
+    searchAlgo.onRun!(grid, visitedCells, initialCoord);
     
     //const animateSpeed = getSpeedMultiplier(speed);
     console.log("Starting Animation!");

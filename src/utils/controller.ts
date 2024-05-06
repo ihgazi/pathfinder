@@ -1,5 +1,6 @@
 import { RenderRate, AnimateSpeed, SearchingAlgo, AlgorithmOption } from "../types";
 import { DFS } from "./algorithms/dfs";
+import { BFS } from "./algorithms/bfs";
 
 // Controller functions for speed and algorithm selection
 
@@ -31,7 +32,13 @@ export const getAlgorithmOption = (algo: SearchingAlgo | null): AlgorithmOption 
                type: SearchingAlgo.DFS,
                onRun: DFS
             };
-        default: 
+        case (SearchingAlgo.BFS):
+            return {
+                name: "Breadth-First Search",
+                type: SearchingAlgo.BFS,
+                onRun: BFS
+            };
+        default:
             return {
                 name: "Select an algorithm!",
                 type: null,

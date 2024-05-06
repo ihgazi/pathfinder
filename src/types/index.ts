@@ -19,6 +19,7 @@ export interface CoordinatePair {
 
 export enum SearchingAlgo {
     DFS = "DFS",
+    BFS = "BFS"
 }
 
 export interface AlgorithmOption {
@@ -27,8 +28,8 @@ export interface AlgorithmOption {
     onRun?: (
         grid: CellInterface[][],
         visitedCells: CellInterface[][],
-        cell: CellInterface,
-    ) => boolean;
+        initialCoord: CoordinatePair,
+    ) => void;
 }
 
 export enum RenderRate {

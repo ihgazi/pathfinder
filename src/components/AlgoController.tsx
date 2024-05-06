@@ -43,8 +43,15 @@ export const AlgoController: React.FC<SpeedProps> = ({
                     className="btn btn-dropdown"
                     onClick={() => setSearchAlgo(getAlgorithmOption(SearchingAlgo.DFS))}
                 >
-                    Depth-First Search
+                    Depth-First Search 
                 </button>
+                <button
+                    className="btn btn-dropdown"
+                    onClick={() => setSearchAlgo(getAlgorithmOption(SearchingAlgo.BFS))}
+                >
+                    Breadth-First Search 
+                </button>
+
             </div>
         </div>
     );

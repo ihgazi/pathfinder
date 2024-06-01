@@ -1,6 +1,6 @@
 import React, { useRef, useState, useEffect } from "react";
 import { CellInterface, CoordinatePair  } from "../types";
-import { getCellMatrix } from "../utils/builder";
+import { getCellMatrix, buildWall } from "../utils/builder";
 import { getStartFinishCell } from "../utils/randomizer";
 import Cell from "./Cell";
 import Navbar from "../components/Navbar";
@@ -18,7 +18,7 @@ const GridBoard = () => {
 
     // animateFlag blocks all actions during animation
     const [animateFlag, setAnimateFlag] = useState(false);
-    const [renderFlag, setRenderFlag] = useState(false);
+    //const [renderFlag, setRenderFlag] = useState(false);
     const [isMouseDown, setIsMouseDown] = useState(false);
 
     const handleDraw = (rowInd: number, colInd: number, click: boolean) => {
@@ -28,8 +28,7 @@ const GridBoard = () => {
         const cell: CellInterface = gridBoardCells.current[rowInd][colInd];
         if (!isMouseDown && !click) return;
         if (cell.isStartPoint || cell.isEndPoint) return;
-        cell.isWall = !cell.isWall;
-        setRenderFlag(!renderFlag);
+        buildWall(gridBoardCells.current, rowInd, colInd);
     };
 
     const clearGrid = () => {

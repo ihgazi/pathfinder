@@ -104,7 +104,7 @@ export const animateMaze = (
                 setTimeout((row: number, col: number) => {
                     let item = document.getElementById(`cell-${row}-${col}`);
                     item!.className = "cell cell-wall";
-                }, iter*10, row, col);
+                }, iter*5, row, col);
                 iter++;
             }
         }
@@ -112,7 +112,7 @@ export const animateMaze = (
     
     setTimeout(() => {
         setAnimateFlag(false);
-    }, iter*10);
+    }, iter*5);
 };
 
 export const visualizeMaze = (
@@ -120,6 +120,7 @@ export const visualizeMaze = (
     initialCoord: CoordinatePair,
     setAnimateFlag: (value: boolean) => void,
 ) => {
+    setAnimateFlag(true);
     Prims(grid,initialCoord);
     animateMaze(grid,setAnimateFlag);
 }

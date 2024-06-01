@@ -18,7 +18,7 @@ const Cell: React.FC<CellInterface & HTMLAttributes<HTMLDivElement>> = ({
     return (
         <div
             {...props}
-            className={getClassName(isWall, isStartPoint, isEndPoint)}
+            className={getClassName(isStartPoint, isEndPoint)}
         ></div>
     );
 };

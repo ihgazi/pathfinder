@@ -22,7 +22,7 @@ export const BFS = (
 
     for (let iter = 0; !endReached && queue.length > 0; iter++) {
         const sz: number = queue.length;
-        visitedCells.push([]);
+        //visitedCells.push([]);
         console.log(iter);
 
         for (let i = 0; i < sz; i++) {
@@ -42,7 +42,7 @@ export const BFS = (
                     const nextCell = grid[row][col];
                     if (nextCell.isVisited || nextCell.isWall) continue;
                     nextCell.isVisited = true;
-                    visitedCells[iter].push(nextCell);
+                    visitedCells.push([nextCell]);
                     queue.push(nextCell);
                     nextCell.previousCell = cell;
                     if (nextCell.isEndPoint) endReached = true;

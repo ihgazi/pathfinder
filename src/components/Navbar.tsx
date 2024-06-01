@@ -76,6 +76,8 @@ const Navbar: React.FC<NavbarProps> = ({
                 onClick={() => {
                     if (animateFlag) return;
 
+                    setPathFound(false);
+                    clearGrid();
                     setAnimateFlag(true);
                     visualizeMaze(grid, initialCoord, setAnimateFlag);
                 }}

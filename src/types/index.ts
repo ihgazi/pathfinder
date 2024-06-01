@@ -42,3 +42,8 @@ export interface AnimateSpeed {
     algoSpeed: number;
     pathSpeed: number;
 }
+
+export interface Edge {
+    source: CellInterface,
+    cell: CellInterface
+}

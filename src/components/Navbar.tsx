@@ -1,6 +1,6 @@
 import React, { HTMLAttributes, useState, useEffect } from "react";
 import "./Navbar.css";
-import { visualizeAlgo, animatePath } from "../utils/animator";
+import { visualizeAlgo, animatePath, visualizeMaze } from "../utils/animator";
 import {
     CellInterface,
     CoordinatePair,
@@ -69,6 +69,18 @@ const Navbar: React.FC<NavbarProps> = ({
                 }}
             >
                 Find Path
+            </button>
+            <button
+                type="button"
+                className="btn bg-green-400 ml-10"
+                onClick={() => {
+                    if (animateFlag) return;
+
+                    setAnimateFlag(true);
+                    visualizeMaze(grid, initialCoord, setAnimateFlag);
+                }}
+            >
+                Generate Maze
             </button>
             <button
                 type="button"

@@ -1,5 +1,6 @@
 import { CellInterface, CoordinatePair, RenderRate, AnimateSpeed, AlgorithmOption } from "../types";
 import { getSpeedMultiplier } from "./controller";
+import { Prims } from "./algorithms/prims";
 
 const animateAlgo = (
     visitedCells: CellInterface[][],
@@ -90,3 +91,35 @@ export const visualizeAlgo = (
     console.log("Starting Animation!");
     animateAlgo(visitedCells, setFoundPath, renderRate);
 };
+
+
+export const animateMaze = (
+    grid: CellInterface[][],
+    setAnimateFlag: (value: boolean) => void
+) => {
+    let iter = 0;
+    for (let row = 0; row < grid.length; row++) {
+        for (let col = 0; col < grid[0].length; col++) {
+            if (grid[row][col].isWall) {
+                setTimeout((row: number, col: number) => {
+                    let item = document.getElementById(`cell-${row}-${col}`);
+                    item!.className = "cell cell-wall";
+                }, iter*10, row, col);
+                iter++;
+            }
+        }
+    }
+    
+    setTimeout(() => {
+        setAnimateFlag(false);
+    }, iter*10);
+};
+
+export const visualizeMaze = (
+    grid: CellInterface[][],
+    initialCoord: CoordinatePair,
+    setAnimateFlag: (value: boolean) => void,
+) => {
+    Prims(grid,initialCoord);
+    animateMaze(grid,setAnimateFlag);
+}

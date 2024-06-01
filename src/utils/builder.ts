@@ -69,11 +69,3 @@ export const getClassName = (
     
     return className;
 };
-
-export const getCellPath = (
-    endCell: CellInterface
-): CellInterface[] => {
-    const cellPath: CellInterface[] = [];
-
-    let currentCell = endCell;
-}

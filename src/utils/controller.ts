@@ -8,8 +8,8 @@ export const getSpeedMultiplier = (speed: RenderRate): AnimateSpeed => {
     switch (speed) {
         case RenderRate.slow:
             return {
-                algoSpeed: 100,
-                pathSpeed: 125,
+                algoSpeed: 40,
+                pathSpeed: 80,
             };
         case RenderRate.medium:
             return {
@@ -18,7 +18,7 @@ export const getSpeedMultiplier = (speed: RenderRate): AnimateSpeed => {
             };
         default:
             return {
-                algoSpeed: 3,
+                algoSpeed: 5,
                 pathSpeed: 10,
             };
     }

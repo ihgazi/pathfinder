@@ -103,7 +103,7 @@ export const animateMaze = (
             if (grid[row][col].isWall) {
                 setTimeout((row: number, col: number) => {
                     let item = document.getElementById(`cell-${row}-${col}`);
-                    item!.className = "cell cell-wall";
+                    item!.className = "cell cell-wall cell-wall-animate";
                 }, iter*5, row, col);
                 iter++;
             }

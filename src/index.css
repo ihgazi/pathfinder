@@ -20,19 +20,24 @@
 }
 
 .cell-wall {
-    @apply bg-black;
+    @apply bg-black border-black;
+}
+
+.cell-wall-animate {
+    animation-name: wallAnimation;
+    animation-duration: 0.5s;
+    animation-timing-function: ease-out;
+    animation-direction: alternate;
+    animation-fill-mode: forwards;
 }
 
 .cell-visited {
     @apply bg-amber-200;
     animation-name: visitedAnimation;
-    animation-duration: 1.5s;
+    animation-duration: 1s;
     animation-timing-function: ease-out;
-    animation-delay: 0;
     animation-direction: alternate;
-    animation-iteration-count: 1;
     animation-fill-mode: forwards;
-    animation-play-state: running;
 }
 
 .cell-path {
@@ -40,11 +45,8 @@
     animation-name: pathAnimation;
     animation-duration: 0.5s;
     animation-timing-function: ease-out;
-    animation-delay: 0;
     animation-direction: alternate;
-    animation-iteration-count: 1;
     animation-fill-mode: forwards;
-    animation-play-state: running;
 }
 
 @keyframes visitedAnimation {
@@ -54,18 +56,18 @@
     }
 
     50% {
-        background-color: rgba(111, 111, 111, 0.75);
+        transform: scale(0.5);
         @apply bg-amber-400;
     }
 
     75% {
-        transform: scale(1.2);
-        @apply: bg-amber-300;
+        transform: scale(0.7);
+        @apply bg-amber-300;
     }
 
     100% {
         transform: scale(1);
-        @apply: bg-amber-200;
+        @apply bg-amber-200;
     }
 }
 
@@ -76,18 +78,40 @@
     }
 
     50% {
-        background-color: rgba(111, 111, 111, 0.75);
+        transform: scale(0.5);
         @apply bg-blue-400;
     }
 
     75% {
-        transform: scale(1.2);
-        @apply: bg-blue-300;
+        transform: scale(0.7);
+        @apply bg-blue-300;
     }
 
     100% {
         transform: scale(1);
-        @apply: bg-blue-200;
+        @apply bg-blue-200;
+    }
+}
+
+@keyframes wallAnimation {
+    0% {
+        transform: scale(0.4);
+        @apply bg-black;
+    }
+
+    50% {
+        transform: scale(0.6);
+        @apply bg-black;
+    }
+
+    75% {
+        transform: scale(0.8);
+        @apply bg-black;
+    }
+
+    100% {
+        transform: scale(1);
+        @apply bg-black;
     }
 }
 

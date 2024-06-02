@@ -8,8 +8,8 @@ import Navbar from "../components/Navbar";
 const GridBoard = () => {
     // TODO: Bad fix. Use event listener for resize
     const viewWidth: number = window.innerWidth;
-    const colDim: number = viewWidth > 1200 ? 64 : 32;
-    const rowDim: number = 30;
+    const colDim: number = viewWidth > 1200 ? 96 : 48;
+    const rowDim: number = 42;
 
     const initialCoord = useRef(getStartFinishCell(rowDim, colDim));
     const gridBoardCells = useRef(
@@ -50,10 +50,10 @@ const GridBoard = () => {
                 animateFlag={animateFlag}
                 setAnimateFlag={(value) => setAnimateFlag(value)}
             />
-            <div className="w-full justify-center items-center px-24">
+            <div className="w-full justify-center items-center px-4">
                 <div
-                    className={`grid w-full justify-start items-center mt-8 ${
-                        colDim === 32 ? "grid-cols-32" : "grid-cols-64"
+                    className={`grid w-full justify-center items-center mt-8 ${
+                        colDim === 96 ? "grid-cols-96" : "grid-cols-48"
                     }`}
                 >
                     {gridBoardCells.current.map((row, rowInd) => {

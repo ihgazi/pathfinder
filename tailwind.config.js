@@ -11,6 +11,8 @@ export default {
             /* Template for grid board */
             '64': 'repeat(64, minmax(0, 1fr))',
             '32': 'repeat(32, minmax(0, 1fr))',
+            '48': 'repeat(48, minmax(0, 1fr))',
+            '96': 'repeat(96, minmax(0, 1fr))'
         }
     },
   },

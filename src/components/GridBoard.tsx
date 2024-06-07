@@ -31,12 +31,12 @@ const GridBoard = () => {
         buildWall(gridBoardCells.current, rowInd, colInd);
     };
 
-    const clearGrid = () => {
+    const clearGrid = (resetWalls: boolean) => {
         gridBoardCells.current = getCellMatrix(
             rowDim,
             colDim,
             initialCoord.current,
-            true,
+            resetWalls,
             gridBoardCells.current
         );
     };

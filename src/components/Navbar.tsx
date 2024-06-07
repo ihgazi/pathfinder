@@ -12,7 +12,7 @@ import { AlgoController } from "./AlgoController";
 import { getAlgorithmOption } from "../utils/controller";
 
 interface NavbarProps extends HTMLAttributes<HTMLDivElement> {
-    clearGrid: () => void;
+    clearGrid: (resetWalls: boolean) => void;
     grid: CellInterface[][];
     initialCoord: CoordinatePair;
     animateFlag: boolean;
@@ -58,7 +58,9 @@ const Navbar: React.FC<NavbarProps> = ({
                 onClick={() => {
                     if (animateFlag || !searchAlgo.type) return;
 
+                    clearGrid(false);
                     setAnimateFlag(true);
+                    setPathFound(false);
                     visualizeAlgo(
                         grid,
                         setPathFound,
@@ -77,7 +79,7 @@ const Navbar: React.FC<NavbarProps> = ({
                     if (animateFlag) return;
 
                     setPathFound(false);
-                    clearGrid();
+                    clearGrid(true);
                     setAnimateFlag(true);
                     visualizeMaze(grid, initialCoord, setAnimateFlag);
                 }}
@@ -91,7 +93,7 @@ const Navbar: React.FC<NavbarProps> = ({
                     if (animateFlag) return;
 
                     setPathFound(false);
-                    clearGrid();
+                    clearGrid(true);
                 }}
             >
                 Clear Grid

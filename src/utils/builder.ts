@@ -30,13 +30,17 @@ export const getCellMatrix = (
     for (let rowInd = 0; rowInd < rowDim; rowInd++) {
         const currentRow: CellInterface[] = [];
         for (let colInd = 0; colInd < colDim; colInd++) {
-            if (resetWalls && grid) {
+            if (grid) {
                 const cell = grid[rowInd][colInd];
-                cell.isWall = false;
+                if (resetWalls) cell.isWall = false;
                 cell.isVisited = false;
                 cell.previousCell = null;
-                let item = document.getElementById(`cell-${rowInd}-${colInd}`);
-                item!.className = getClassName(cell.isStartPoint, cell.isEndPoint);
+                cell.distanceFromStart = Infinity;
+                cell.totalDistance = Infinity;
+                if(!(!resetWalls && cell.isWall)) {
+                    let item = document.getElementById(`cell-${rowInd}-${colInd}`);
+                    item!.className = getClassName(cell.isStartPoint, cell.isEndPoint);
+                }
             } else {
                 currentRow.push({
                     ...singleCell,
@@ -53,7 +57,7 @@ export const getCellMatrix = (
             }
             cellNumber++;
         }
-        if (!resetWalls) cellMatrix.push(currentRow);
+        if (!grid) cellMatrix.push(currentRow);
     }
 
     return cellMatrix;

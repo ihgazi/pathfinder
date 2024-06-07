@@ -13,6 +13,7 @@ const Cell: React.FC<CellInterface & HTMLAttributes<HTMLDivElement>> = ({
     isVisited,
     previousCell,
     distanceFromStart,
+    totalDistance,
     ...props
 }) => {
     return (

@@ -10,6 +10,7 @@ export const singleCell: CellInterface = {
     isStartPoint: false,
     isEndPoint: false,
     distanceFromStart: Infinity,
+    totalDistance: Infinity,
     previousCell: null,
     isVisited: false,
 };

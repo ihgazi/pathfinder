@@ -51,7 +51,12 @@ export const AlgoController: React.FC<SpeedProps> = ({
                 >
                     Breadth-First Search 
                 </button>
-
+                <button
+                    className="btn btn-dropdown"
+                    onClick={() => setSearchAlgo(getAlgorithmOption(SearchingAlgo.AStar))}
+                >
+                    A* Search
+                </button>
             </div>
         </div>
     );

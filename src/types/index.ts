@@ -6,6 +6,7 @@ export interface CellInterface {
     isStartPoint: boolean;
     isEndPoint: boolean;
     distanceFromStart: number;
+    totalDistance: number;
     previousCell: CellInterface | null;
     isVisited: boolean;
 }
@@ -19,7 +20,8 @@ export interface CoordinatePair {
 
 export enum SearchingAlgo {
     DFS = "DFS",
-    BFS = "BFS"
+    BFS = "BFS",
+    AStar = "A*",
 }
 
 export interface AlgorithmOption {

@@ -1,6 +1,7 @@
 import { RenderRate, AnimateSpeed, SearchingAlgo, AlgorithmOption } from "../types";
 import { DFS } from "./algorithms/dfs";
 import { BFS } from "./algorithms/bfs";
+import { AStar } from "./algorithms/astar";
 
 // Controller functions for speed and algorithm selection
 
@@ -37,6 +38,12 @@ export const getAlgorithmOption = (algo: SearchingAlgo | null): AlgorithmOption 
                 name: "Breadth-First Search",
                 type: SearchingAlgo.BFS,
                 onRun: BFS
+            };
+        case (SearchingAlgo.AStar):
+            return {
+                name: "A* Search",
+                type: SearchingAlgo.AStar,
+                onRun: AStar
             };
         default:
             return {

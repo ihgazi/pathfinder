@@ -50,7 +50,7 @@ const GridBoard = () => {
                 animateFlag={animateFlag}
                 setAnimateFlag={(value) => setAnimateFlag(value)}
             />
-            <div className="w-full justify-center items-center px-4">
+            <div className="w-full justify-center items-center px-2">
                 <div
                     className={`grid w-full justify-center items-center mt-8 ${
                         colDim === 96 ? "grid-cols-96" : "grid-cols-48"
